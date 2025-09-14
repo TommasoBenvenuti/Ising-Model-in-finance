@@ -50,10 +50,18 @@ $$
 \end{cases}
 $$
 
+
+
 $$
 Q = -J_{i,j,t} \cdot \text{neighbors} \cdot \Delta S
     + G_t \cdot (\sigma_{i,j} + \epsilon_{i,j}) \cdot \Delta S
 $$
+
+$G(t)$ is related to Global and external news, which is a standard Gaussian noise and $\sigma _i$ is the relative agent's sentiment to the news. Please Note that Global news affects both the exchange and the "energy term".
+
+The term $\epsilon _i$ is releted to individual judgment, based on private information. It counts both random variable and the sum over the number of spin of a common costant. The paper cited describes the quantity $\epsilon$ as idiosyncratic. 
+
+Following the MCMC method, if Q is negative the spin flip is accepted, otherwise the exponential of -Q is  compared to random number and spin flip is accepted if the random number is lower than the exponential itself.
 
 ---
 
