@@ -13,6 +13,8 @@
     - Global news: An external factor that simultaneously influences all agents
     - Agent heterogeneity: Individual parameters (b, sigma, epsilon) that model different behaviors
 
+The grid is initialized randomly. Consider that the average value of spin state at the first step decides the price, following the rule that the market makes the price
+
 --------     Key Equations    --------    
 
 Influence update (J)
@@ -26,14 +28,15 @@ Return describes how market is reacting in time. It's calculated as the avarege 
 An higher liquidity means more stable market and lower liquidity viceversa.
 
 
-State transition (Metropolis)
-text
-ΔS = -2 (if spin=1) or +2 (if spin=-1)
-Q = -J[i,j,t]·neighbors·ΔS + G[t]·(σ[i,j] + ε[i,j])·ΔS
-Prices and Returns
-text
-R[t] = S_avg/λ  (expected return)
-P[t] = P[t-1]·exp(R[t])  (price)
+- State transition (Metropolis)
+
+$ \DeltaS = -2$  (if spin=1) or +2 (if spin=-1)
+$Q = -J[i,j,t]·neighbors·ΔS + G[t]·(\sigma[i,j] + \epsilon[i,j])·\Delta S $
+
+- Prices and Returns
+
+$R[t] = S_{avg]/\lambda$  (expected return)
+$P[t] = P[t-1]·exp(R[t])$  (price)
 
                            
                            Parameters
