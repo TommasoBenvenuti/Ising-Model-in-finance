@@ -101,4 +101,10 @@ You can vary them. Most of them are simply extracted from the article
 The simulation generates:
 - Real-time visualization of spin configuration (saved as `.mp4`)  
 - Market price movement over time  
-- Expected returns based on average sentiment  
+- Expected returns based on average sentiment
+
+---
+## Discalimer
+The code is not that efficient. 
+The idea of generating an output file with extension .mp4 clearly doesn't help but i think it is interesting.
+I do not know how to accelerate calculation using python.
