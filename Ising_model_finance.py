@@ -90,7 +90,7 @@ def update(step):
     #print(f"Step {step}: Price = {price}, Return = {current_return}, Sentiment = {S_avg}")
     
     prices.append(price)
-    price = 0  # essere sicuri che non venga usato per il calcolo successivo
+
     
      
     # Volatilità
