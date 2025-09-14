@@ -1,6 +1,6 @@
 # Financial Market Simulation (Ising Model Inspired)
 
-[Example of Market simulation](Market_example.gif)
+![Example of Market simulation](Market_example.gif)
 
 This project implements a financial market simulation based on the Ising model,  
 where market agents (represented as spins in a grid) interact with each other and respond to global news, influencing price movements.
