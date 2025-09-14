@@ -1,0 +1,64 @@
+--------    Description    --------    
+
+  This project implements a financial market simulation based on the Ising model, where market agents (represented as spins in a grid) interact with each other and respond to global news, influencing price movements.
+  The model is based on: Zhou, WX., Sornette, D. Self-organizing Ising model of financial markets. Eur. Phys. J. B 55, 175–181 (2007). https://doi.org/10.1140/epjb/e2006-00391-6
+  The code is implemented slightly different to the model reported in the article. The Ising problem here is solved with the Metropolis-Montecarlo Model, or Markov Chain MonteCarlo (MCMC).
+
+
+--------    Theoretical Model    --------
+
+  The simulation combines:
+    - Ising model: Agents (spins) can buy  (+1) or sell (-1), in analogy with spin-up or spin down states in the classic Ising Model
+    - Social influence: Agents are influenced by their neighbors (4-neighbor interaction). Similar to magnetic exchange in classic Ising Model 
+    - Global news: An external factor that simultaneously influences all agents
+    - Agent heterogeneity: Individual parameters (b, sigma, epsilon) that model different behaviors
+
+--------     Key Equations    --------    
+
+Influence update (J)
+text
+J[i,j,t] = b[i,j] + α·J[i,j,t-1] + β·r[t-1]·G[t-1]
+
+The Influence costant, updated at each step, takes in account a value for each trader b_i, froze at the first step and selected randomly from an uniform distribution in (0,b_max)
+the Influence costant at the previous step and Global noise. The last term is modulated by the return at the previous step. 
+
+Return describes how market is reacting in time. It's calculated as the avarege value of spin staes and then divided by the factor lambda, that represents the liquidity of the market.
+An higher liquidity means more stable market and lower liquidity viceversa.
+
+
+State transition (Metropolis)
+text
+ΔS = -2 (if spin=1) or +2 (if spin=-1)
+Q = -J[i,j,t]·neighbors·ΔS + G[t]·(σ[i,j] + ε[i,j])·ΔS
+Prices and Returns
+text
+R[t] = S_avg/λ  (expected return)
+P[t] = P[t-1]·exp(R[t])  (price)
+
+                           
+                           Parameters
+N_totale: Grid size (35×35 agents)
+
+n_steps: Number of iterations (50,000)
+
+alpha: Persistence factor (0.2)
+
+beta: Return sensitivity (1.0 - irrational regime)
+
+b_max, sigma_max: Limits for agent heterogeneity
+
+CV: Coefficient of variation for noise
+
+lambda_val: Scaling factor for returns (40)
+
+Output
+The simulation generates:
+
+Real-time visualization of the spin configuration saved as .mp4
+
+Market price movement over time
+
+Expected returns based on average sentiment
+
+The final result is a video (ising_market_full.mp4) showing the evolution of these three elements.
+
