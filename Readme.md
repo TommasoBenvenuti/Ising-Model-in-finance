@@ -87,7 +87,7 @@ $$
 You can vary them. Most of them are simply extracted from the article
 
 - `N_total`: Grid size (35×35 agents)  
-- `n_steps`: Number of iterations (50,000)  
+- `n_steps`: Number of iterations (5000)  
 - `alpha`: Persistence factor (0.2)  
 - `beta`: Return sensitivity (1.0, irrational regime)  
 - `b_max, sigma_max`: Limits for agent heterogeneity  
