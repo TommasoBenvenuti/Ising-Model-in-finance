@@ -6,7 +6,7 @@ from matplotlib.animation import FuncAnimation, FFMpegWriter
 
 # -.-.-.-.-. Input -.-.-.-..-.
 N_totale = 35
-n_steps = 10000
+n_steps = 5000
 
 # Parametri modificati secondo paper
 alpha = 0.2
