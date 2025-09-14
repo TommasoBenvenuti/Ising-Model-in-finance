@@ -1,67 +1,92 @@
---------    Description    --------    
+# Financial Market Simulation (Ising Model Inspired)
 
-  This project implements a financial market simulation based on the Ising model, where market agents (represented as spins in a grid) interact with each other and respond to global news, influencing price movements.
-  The model is based on: Zhou, WX., Sornette, D. Self-organizing Ising model of financial markets. Eur. Phys. J. B 55, 175–181 (2007). https://doi.org/10.1140/epjb/e2006-00391-6
-  The code is implemented slightly different to the model reported in the article. The Ising problem here is solved with the Metropolis-Montecarlo Model, or Markov Chain MonteCarlo (MCMC).
+This project implements a financial market simulation based on the Ising model,  
+where market agents (represented as spins in a grid) interact with each other and respond to global news, influencing price movements.
 
+The model is based on:  
+**Zhou, W.X., Sornette, D.** *Self-organizing Ising model of financial markets*. Eur. Phys. J. B 55, 175–181 (2007).  
+[https://doi.org/10.1140/epjb/e2006-00391-6](https://doi.org/10.1140/epjb/e2006-00391-6)
 
---------    Theoretical Model    --------
+ The implementation differs slightly from the article:  
+ The Ising problem here is solved with the **Metropolis Monte Carlo** method (MCMC).
 
-  The simulation combines:
-    - Ising model: Agents (spins) can buy  (+1) or sell (-1), in analogy with spin-up or spin down states in the classic Ising Model
-    - Social influence: Agents are influenced by their neighbors (4-neighbor interaction). Similar to magnetic exchange in classic Ising Model 
-    - Global news: An external factor that simultaneously influences all agents
-    - Agent heterogeneity: Individual parameters (b, sigma, epsilon) that model different behaviors
+---
 
-The grid is initialized randomly. Consider that the average value of spin state at the first step decides the price, following the rule that the market makes the price
+##  Theoretical Model
 
---------     Key Equations    --------    
+The simulation combines:
+- **Ising model**: Agents (spins) can buy ($+1$) or sell ($-1$), analogous to spin-up or spin-down states.
+- **Social influence**: Agents are influenced by their 4 nearest neighbors, analogous to spin exchange in Ising Model
+- **Global news**: An external factor influencing all agents simultaneously. Something similar can be implemented in Ising model to simulate perturbation by magnetic Fields.
+- **Agent heterogeneity**: Individual parameters ($b$, $\sigma$, $\epsilon$) define different behaviors.
 
-Influence update (J)
-text
-J[i,j,t] = b[i,j] + α·J[i,j,t-1] + β·r[t-1]·G[t-1]
+The grid is initialized randomly.  
+The **average spin value** at the first step determines the initial price (the market makes the price).
 
-The Influence costant, updated at each step, takes in account a value for each trader b_i, froze at the first step and selected randomly from an uniform distribution in (0,b_max)
-the Influence costant at the previous step and Global noise. The last term is modulated by the return at the previous step. 
+---
 
-Return describes how market is reacting in time. It's calculated as the avarege value of spin staes and then divided by the factor lambda, that represents the liquidity of the market.
-An higher liquidity means more stable market and lower liquidity viceversa.
+##  Key Equations
 
+**Influence update**
 
-- State transition (Metropolis)
+$$
+J_{i,j,t} = b_{i,j} + \alpha J_{i,j,t-1} + \beta r_{t-1} G_{t-1}
+$$
 
-$ \DeltaS = -2$  (if spin=1) or +2 (if spin=-1)
-$Q = -J[i,j,t]·neighbors·ΔS + G[t]·(\sigma[i,j] + \epsilon[i,j])·\Delta S $
+- $b_{i,j}$: fixed parameter drawn from a uniform distribution in $(0, b_{\max})$  
+- $J_{i,j,t-1}$: influence constant at previous step  
+- $G_{t-1}$: global noise term  
+- $r_{t-1}$: return at previous step  
 
-- Prices and Returns
+---
 
-$R[t] = S_{avg]/\lambda$  (expected return)
-$P[t] = P[t-1]·exp(R[t])$  (price)
+**State transition (Metropolis)**
 
-                           
-                           Parameters
-N_totale: Grid size (35×35 agents)
+$$
+\Delta S =
+\begin{cases}
+-2 & \text{if spin = +1} \\
++2 & \text{if spin = -1}
+\end{cases}
+$$
 
-n_steps: Number of iterations (50,000)
+$$
+Q = -J_{i,j,t} \cdot \text{neighbors} \cdot \Delta S
+    + G_t \cdot (\sigma_{i,j} + \epsilon_{i,j}) \cdot \Delta S
+$$
 
-alpha: Persistence factor (0.2)
+---
 
-beta: Return sensitivity (1.0 - irrational regime)
+**Prices and Returns**
 
-b_max, sigma_max: Limits for agent heterogeneity
+$$
+R_t = \frac{S_{\text{avg}}}{\lambda}
+$$
 
-CV: Coefficient of variation for noise
+$$
+P_t = P_{t-1} \cdot \exp(R_t)
+$$
 
-lambda_val: Scaling factor for returns (40)
+- $S_{\text{avg}}$: average spin value  
+- $\lambda$: liquidity factor (higher liquidity → more stable market)
 
-Output
+---
+
+## ⚙️ Parameters
+
+- `N_total`: Grid size (35×35 agents)  
+- `n_steps`: Number of iterations (50,000)  
+- `alpha`: Persistence factor (0.2)  
+- `beta`: Return sensitivity (1.0 → irrational regime)  
+- `b_max, sigma_max`: Limits for agent heterogeneity  
+- `CV`: Coefficient of variation for noise  
+- `lambda_val`: Scaling factor for returns (40)  
+
+---
+
+## 📊 Output
+
 The simulation generates:
-
-Real-time visualization of the spin configuration saved as .mp4
-
-Market price movement over time
-
-Expected returns based on average sentiment
-
-The final result is a video (ising_market_full.mp4) showing the evolution of these three elements.
-
+- Real-time visualization of spin configuration (saved as `.mp4`)  
+- Market price movement over time  
+- Expected returns based on average sentiment  
