@@ -72,7 +72,9 @@ $$
 
 ---
 
-## ⚙ Parameters
+##  Parameters
+
+You can vary them. Most of them are simply extracted from the article
 
 - `N_total`: Grid size (35×35 agents)  
 - `n_steps`: Number of iterations (50,000)  
