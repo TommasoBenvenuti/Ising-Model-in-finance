@@ -71,7 +71,7 @@ def update(step):
     # Calcolo energia  
     DeltaS = -2 if selected_spin == 1 else +2
     neigh = compute_neighbors(Grid, (i, j))
-    Q = -J[i, j, step] * neigh * DeltaS + G_global[step] * (sigma[i, j] + epsilon[i, j]) * DeltaS
+    Q = (-J[i, j, step] * neigh + G_global[step]*sigma[i, j] + epsilon[i, j])* DeltaS
     # Metropolis
     if (Q < 0) or (random.random() < np.exp(-Q)):
         Grid[i, j] = -selected_spin
